@@ -1,0 +1,104 @@
+PHPlist module
+===========================
+This module introduces a new datatype "PHPList Subscribe".  When this datatype
+is added to a user class it allows for: 
++ user details to be added and synchronised with PHPlist 
++ subscription and unsubscription from a nominated list.
++ user is removed from PHPList when deleted from eZ publish
+
+Requirements
+-----------------
+PHPlist 2.10.1 & above*
+eZ publish 3.6.0**
+
+* Note: The phpList tables must be in the same database as eZ publish and use
+the default "phplist_" table prefix.  We will be addressing both 
+these issues in future releases.
+
+See the TODO document for other features that will be added.
+
+** This module may work with earlier versions of eZ publish
+
+
+Installation
+-----------------
+Follow these steps to add the PHPlist module to your eZ publish installation:
+
+  1) Extract the archive into the /extension directory
+
+  2) Edit site.ini.append in /settings/override. Add the following to the file:
+
+       [ExtensionSettings]
+       ActiveExtensions[]=phplist
+
+     If you already have the [ExtensionSettings] block, just add the second line.
+
+Usage
+-----------------
+Edit the user content class and add a "PHPList Subscribe" attribute.  You will
+be presented with a list of active lists.  Choose one of these lists and store
+the user content class.  Name the attribute something like "Subscribe to
+mailing list"
+
+Now when editing a user a checkbox will appear, allowing the user to be
+subscribed to the nominated list.  Unchecking the box will unsubscribe the
+user.  The users email address will be updated if it is changed.
+
+Use of this feature implies that all user interaction
+(subscribe/unsubscribe/preference editing) is handled via the eZ publish user
+object.  To ensure this is the case you should configure PHPlist to use pages
+on your eZ Publish site for these functions.  This can be done via the
+'configure' option in PHPlist admin and editing the following options: 
++ URL where users can subscribe
++ URL where users can unsubscribe
++ URL where users have to confirm their subscription
++ URL where users can update their details
+
+Attribute Mapping
+-----------------
+Currently to use this you need to edit settings/phplist.ini.php and maunally
+add the mapping of the ezpublish attribute id to the phplist attribute id.
+
+[AttributeMap]
+MapEzPhplist[246]=1
+MapEzPhplist[247]=2
+MapEzPhplist[457]=3
+
+Will map eZ Attribute ID 246 to phplist users attribute id 1 etc.
+
+This will work for text fields and may work select or radio phplist attributes.
+
+Importing eZ users into PHPList
+-------------------------------
+Once you have installed the extension and included the "PHPList Subscribe"
+attribute to the user class you can run the script eztophplist.php.  This
+script will process all content objects that include a PHPList Subscribe"
+attribute and import them into PHPList.
+
+The script can also be used to sync user details .
+
+License
+-----------------
+
+This file may be distributed and/or modified under the terms of the "GNU
+General Public License" version 2 as published by the Free Software Foundation
+
+This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
+WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+
+The "GNU General Public License" (GPL) is available at
+http://www.gnu.org/copyleft/gpl.html.
+
+Contact license@designit.com.au if any conditions of this licencing isn't clear to you.
+
+Links
+--------------
+PHPlist module (will bve updated with FAQs etc)
+http://www.designit.com.au/solutions/ez_publish_phplist_module
+
+eZ Publish
+http://ez.no
+
+PHPList
+http://tincan.co.uk/phplist
+

@@ -101,7 +101,7 @@ class phplist_user_attribute extends eZPersistentObject
                 $output[]=$row['id'];
             }
         }
-        return join(',',$output);
+        return join( ',', $output );
     }
 
 }

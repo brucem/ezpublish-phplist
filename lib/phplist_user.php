@@ -17,6 +17,15 @@
 // you.
 //
 
+/**
+ * phplist_user 
+ * 
+ * @package PHPList
+ * @version //autogen//
+ * @copyright Copyright (C) 2009 Bruce Morrison. All rights reserved.
+ * @author Bruce Morrison <bruce.morrison@stuffandcontent.com> 
+ * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License (GPL)
+ */
 class phplist_user extends eZPersistentObject
 {
 
@@ -122,9 +131,10 @@ class phplist_user extends eZPersistentObject
 
     static function create()
     {
-        $row=array('entered' => date('Y-m-d H:i:s'),
+        $row=array(
+            'entered'   => date('Y-m-d H:i:s'),
             'extradata' => 'eZ publish user',
-            'uniqid' => md5(uniqid(mt_rand()))
+            'uniqid'    => md5(uniqid(mt_rand()))
         );
         return new phplist_user( $row );
     }
@@ -223,15 +233,15 @@ class phplist_user extends eZPersistentObject
         if (! $this->isSubscribed($listID))
         {
             $sub = phplist_listuser::create();
-            $sub->setAttribute('listid',$listID);
-            $sub->setAttribute('userid',$this->attribute('id'));
+            $sub->setAttribute('listid', $listID);
+            $sub->setAttribute('userid', $this->attribute('id'));
             $sub->store();
         }
     }
 
     function unsubscribe($listID)
     {
-        $sub = phplist_listuser::fetchByUserIDListID($this->attribute('id'),$listID);
+        $sub = phplist_listuser::fetchByUserIDListID($this->attribute('id'), $listID);
         if ($sub != null)
             $sub->remove();
     }
@@ -242,8 +252,8 @@ class phplist_user extends eZPersistentObject
         {
             // read inifile to get mappings
             $ini = eZINI::instance('phplist.ini');
-            $attributeMap = $ini->variable( "AttributeMap", "MapEzPhplist" );
-            if (is_array($attributeMap) && count($attributeMap) > 0)
+            $attributeMap = $ini->hasVariable("AttributeMap", "MapEzPhplist" ) ? $ini->variable( "AttributeMap", "MapEzPhplist" ) : false;
+            if ( is_array( $attributeMap ) && count( $attributeMap ) > 0)
             {
                 $contentobjectAttributes = $userObject->attribute('contentobject_attributes');
                 foreach ($contentobjectAttributes as $attribute)
@@ -267,14 +277,11 @@ class phplist_user extends eZPersistentObject
                         $phplistAttribute = $phplistUserAttribute->attribute('attribute');
                         switch ($phplistAttribute->attribute('type'))
                         {
-                        case 'select':
-                        case 'radio':
-                        {
-                            $content=$phplistAttribute->getAttributeValueID($content);    
-                        }break;
-                    default: 
-                        {
-                        }break;
+                            case 'select':
+                            case 'radio':
+                            {
+                                $content=$phplistAttribute->getAttributeValueID($content);
+                            } break;
                         }
                         $phplistUserAttribute->setAttribute('value', $content);
                         $phplistUserAttribute->store();

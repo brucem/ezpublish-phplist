@@ -18,14 +18,15 @@
 //
 include_once( "lib/ezdb/classes/ezdb.php" );
 $Module = array( "name" => "phplist" );
-$FunctionList['read'] = array();
-$FunctionList['edit'] = array();
-$FunctionList['remove'] = array();
 
-$ViewList["view"] = array( 
+$FunctionList['read']   = array();
+$FunctionList['edit']   = array();
+$FunctionList['remove'] = array();
+                         
+$ViewList['view'] = array(
     'functions' => array( 'read' ),
-    "script" => "view.php",
-    "params" => array('id')
+    'script'    => 'view.php',
+    'params'    => array( 'id' )
 );
 
 

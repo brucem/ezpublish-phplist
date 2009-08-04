@@ -39,6 +39,5 @@ class phplistFunctionCollection
         return array( 'result' => $result );
     }
 
-} 
-
+}
 ?>

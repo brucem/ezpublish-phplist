@@ -18,33 +18,35 @@
 //
 $FunctionList = array();
 
-$FunctionList['fetchLists'] = array( 
+$FunctionList['fetchLists'] = array(
     'name' => 'fetchLists',
     'operation_types' => array( 'read' ),
-    'call_method' => array( 
+    'call_method' => array(
         'include_file' => 'extension/phplist/modules/phplist/phplistfunctioncollection.php',
         'class' => 'phplistFunctionCollection',
-        'method' => 'fetchLists' 
+        'method' => 'fetchLists'
     ),
     'parameter_type' => 'standard',
-    'parameters' => array( )
+    'parameters' => array()
 );
 
-$FunctionList['fetchList'] = array( 
+$FunctionList['fetchList'] = array(
     'name' => 'fetchList',
     'operation_types' => array( 'read' ),
-    'call_method' => array( 
+    'call_method' => array(
         'include_file' => 'extension/phplist/modules/phplist/phplistfunctioncollection.php',
         'class' => 'phplistFunctionCollection',
-        'method' => 'fetchList' 
+        'method' => 'fetchList'
     ),
     'parameter_type' => 'standard',
-    'parameters' => array( array('name' => 'listID',
-    'type' => 'integer',
-    'required' => true,
-    'default' => -1 )
-)
+    'parameters' => array(
+        array(
+            'name' => 'listID',
+            'type' => 'integer',
+            'required' => true,
+            'default' => -1
+        )
+    )
 );
-
 
 ?>

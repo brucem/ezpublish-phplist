@@ -23,10 +23,10 @@ set_time_limit( 0 );
 include_once( 'lib/ezutils/classes/ezcli.php' );
 include_once( 'kernel/classes/ezscript.php' );
 
-$cli =& eZCLI::instance();
+$cli = eZCLI::instance();
 $endl = $cli->endlineString();
 
-$script =& eZScript::instance( array( 'description' => ( "eZ publish to phpList user Import.\n\n".
+$script = eZScript::instance( array( 'description' => ( "eZ publish to phpList user Import.\n\n".
                                                          "Goes trough all objects with phplistsubscribe attributes and imports and or refreshes user details into phpList." .
                                                          "\n" .
                                                          "eztophplist.php" ),
@@ -50,10 +50,10 @@ if ( $siteAccess )
     changeSiteAccessSetting( $siteaccess, $siteAccess );
 }
 
-function changeSiteAccessSetting( &$siteaccess, $optionData )
+function changeSiteAccessSetting( $siteaccess, $optionData )
 {
     global $isQuiet;
-    $cli =& eZCLI::instance();
+    $cli = eZCLI::instance();
     if ( file_exists( 'settings/siteaccess/' . $optionData ) )
     {
         $siteaccess = $optionData;
@@ -73,15 +73,15 @@ include_once( 'kernel/classes/ezcontentobject.php' );
 include_once( 'lib/ezdb/classes/ezdb.php' );
 include_once( "extension/phplist/lib/phplist_user.php" );
 
-$db =& eZDB::instance();
+$db = eZDB::instance();
 $db->setIsSQLOutputEnabled( $showSQL );
 
-$phplistSubscribeTypeAttributeList =& eZContentClassAttribute::fetchList( true, array( 'data_type' => 'phplistsubscribe',
+$phplistSubscribeTypeAttributeList = eZContentClassAttribute::fetchList( true, array( 'data_type' => 'phplistsubscribe',
                                                                           'version' => 0 ) );
 $classAttributeIDList = array();
 for ( $i = 0; $i < count( $phplistSubscribeTypeAttributeList ); ++$i )
 {
-    $phplistSubscribeTypeAttribute =& $phplistSubscribeTypeAttributeList[$i];
+    $phplistSubscribeTypeAttribute = $phplistSubscribeTypeAttributeList[$i];
     $classAttributeIDList[] = $phplistSubscribeTypeAttribute->attribute( 'id' );
 }
 unset( $phplistSubscribeTypeAttributeList );
@@ -104,16 +104,16 @@ while ( $attributeOffset < $attributeCount )
 {
   $percent = ( $dotTotalCount * 100.0 ) / ( $attributeCount - 1 );
   unset( $objectAttributeList );
-  $objectAttributeList =& eZContentObjectAttribute::fetchListByClassID( $classAttributeIDList, false, array( 'offset' => $attributeOffset,
+  $objectAttributeList = eZContentObjectAttribute::fetchListByClassID( $classAttributeIDList, false, array( 'offset' => $attributeOffset,
                                                                                                                    'length' => $attributeLimit ),
                                                                         true, false );
   $lastID = false;
   for ( $i = 0; $i < count( $objectAttributeList ); ++$i )
   {
     $percent = ( $dotTotalCount * 100.0 ) / ( $attributeCount - 1 );
-    $objectAttribute =& $objectAttributeList[$i];
+    $objectAttribute = $objectAttributeList[$i];
     $lastID = $objectAttribute->attribute( 'id' );
-    $dataType =& $objectAttribute->dataType();
+    $dataType = $objectAttribute->dataType();
     $handleAttribute = true;
     $badDataType = false;
     if ( !$dataType or get_class( $dataType ) != 'phplistsubscribetype' )
@@ -129,19 +129,19 @@ while ( $attributeOffset < $attributeCount )
         $data = $objectAttribute->content();
         // Fetch  phplist user
         $contentObjectID = $objectAttribute->attribute('contentobject_id');
-        $phplistuser =& phplist_user::fetchByForeignkey($contentObjectID);
+        $phplistuser = phplist_user::fetchByForeignkey($contentObjectID);
         // If there isn't a user with this Foreignkey create one
         if ($phplistuser == null)
         {
-          $phplistuser =& phplist_user::create();
+          $phplistuser = phplist_user::create();
           $phplistuser->setAttribute('foreignkey', $contentObjectID);
         }
         // Check that the email address is the same and update if required
-        $userObject =& eZUser::fetch( $contentObjectID );
+        $userObject = eZUser::fetch( $contentObjectID );
         $phplistuser->setAttribute('email', $userObject->attribute('email'));
         $phplistuser->store();
         // Depending on value of attribute modify subscription
-        $contentClassAttribute =& $objectAttribute->contentClassAttribute();
+        $contentClassAttribute = $objectAttribute->contentClassAttribute();
         $listID    = $contentClassAttribute->attribute( 'data_int1' );
         if ($listID > 0 && $data)
           $phplistuser->subscribe($listID);
@@ -149,7 +149,7 @@ while ( $attributeOffset < $attributeCount )
           $phplistuser->unsubscribe($listID);
        }
        // Map attributes
-       $contentObject =& eZContentObject::fetch( $contentObjectID );
+       $contentObject = eZContentObject::fetch( $contentObjectID );
        $phplistuser->mapAttributes($contentObject);
        print( '.' );
     }

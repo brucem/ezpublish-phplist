@@ -16,19 +16,15 @@
 // Contact license@designit.com.au if any conditions of this licencing isn't clear to
 // you.
 //
-include_once( "lib/ezdb/classes/ezdb.php" );
 include_once( 'kernel/common/template.php' );
-include_once( 'kernel/common/eztemplatedesignresource.php' );
-include_once( "extension/phplist/lib/phplist_user.php" );
 
-$Module =& $Params['Module'];
-
+$Module = $Params['Module'];
 
 $id = $Params['id'];
 if ( !is_numeric( $id ) )
-  $id = false;
+    $id = false;
 
-$tpl =& templateInit();
+$tpl = templateInit();
 $object = phplist_user::fetchByForeignkey( $id );
 $tpl->setVariable( 'object', $object );
 

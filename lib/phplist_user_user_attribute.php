@@ -17,66 +17,58 @@
 // you.
 //
 
-include_once( "lib/ezdb/classes/ezdb.php" );
-include_once( 'kernel/classes/ezpersistentobject.php' );
-include_once( "extension/phplist/lib//phplist_user_attribute.php" );
-
-
 class phplist_user_user_attribute extends eZPersistentObject
 {
 
-  function phplist_user_user_attribute(&$row)
-  {
-    $this->eZPersistentObject( $row );
-  }
+    function phplist_user_user_attribute( $row )
+    {
+        $this->eZPersistentObject( $row );
+    }
 
-  function &definition()
-  {
-    return array( 'fields' => array(
-                    'attributeid' => array(
-                      'name' => 'attributeid',
-                      'datatype' => 'integer',
-                      'default' => 0,
-                      'required' => true ),
-                    'userid' => array(
-                      'name' => 'userid',
-                      'datatype' => 'integer',
-                      'default' => 0,
-                      'required' => true ),
-                    'value' => array(
-                      'name' => 'value',
-                      'datatype' => 'string',
-                      'default' => '',
-                      'required' => false ),
-                  ),
-                  'keys' => array( 'attributeid', 'userid' ),
-                  'function_attributes' => array(
-                    'attribute' => 'getAttribute'
-                  ),
-                  'class_name' => 'phplist_user_user_attribute',
-                  'name' => 'phplist_user_user_attribute' );
-  }
-  
-  function &create()
-  {
-    return new phplist_user_user_attribute( $row );
-  }
+    static function definition()
+    {
+        return array( 'fields' => array(
+            'attributeid' => array(
+                'name' => 'attributeid',
+                'datatype' => 'integer',
+                'default' => 0,
+                'required' => true ),
+            'userid' => array(
+                'name' => 'userid',
+                'datatype' => 'integer',
+                'default' => 0,
+                'required' => true ),
+            'value' => array(
+                'name' => 'value',
+                'datatype' => 'string',
+                'default' => '',
+                'required' => false ),
+        ),
+        'keys' => array( 'attributeid', 'userid' ),
+        'function_attributes' => array(
+            'attribute' => 'getAttribute'
+        ),
+        'class_name' => 'phplist_user_user_attribute',
+        'name' => 'phplist_user_user_attribute' );
+    }
 
-  function &store()
-  {
-    eZPersistentObject::store();
-    // add History entry
-  }
+    static function create()
+    {
+        return new phplist_user_user_attribute( $row );
+    }
 
-  function &getAttribute()
-  {
-    $conds = array( 'id' => $this->attribute('attributeid'));
-    return phplist_user_attribute::fetchObject( phplist_user_attribute::definition(), null, $conds);
-  }
+    function store( $fieldFilters = null )
+    {
+        eZPersistentObject::store();
+        // add History entry
+    }
 
-  
+    function getAttribute()
+    {
+        $conds = array( 'id' => $this->attribute('attributeid'));
+        return phplist_user_attribute::fetchObject( phplist_user_attribute::definition(), null, $conds);
+    }
+
 }
 
 ?>
- 
- 

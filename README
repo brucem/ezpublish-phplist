@@ -9,15 +9,12 @@ is added to a user class it allows for:
 Requirements
 -----------------
 PHPlist 2.10.1 & above*
-eZ publish 3.6.0**
+eZ publish 4.0x
 
 * Note: The phpList tables must be in the same database as eZ publish and use
-the default "phplist_" table prefix.  We will be addressing both 
-these issues in future releases.
+the default "phplist_" table prefix.
 
 See the TODO document for other features that will be added.
-
-** This module may work with earlier versions of eZ publish
 
 
 Installation

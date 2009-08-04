@@ -16,35 +16,34 @@
 // Contact license@designit.com.au if any conditions of this licencing isn't clear to
 // you.
 //
-include_once( "lib/ezdb/classes/ezdb.php" );
 $FunctionList = array();
 
 $FunctionList['fetchLists'] = array( 
-  'name' => 'fetchLists',
-  'operation_types' => array( 'read' ),
-  'call_method' => array( 
-    'include_file' => 'extension/phplist/modules/phplist/phplistfunctioncollection.php',
-    'class' => 'phplistFunctionCollection',
-    'method' => 'fetchLists' 
-  ),
-  'parameter_type' => 'standard',
-  'parameters' => array( )
+    'name' => 'fetchLists',
+    'operation_types' => array( 'read' ),
+    'call_method' => array( 
+        'include_file' => 'extension/phplist/modules/phplist/phplistfunctioncollection.php',
+        'class' => 'phplistFunctionCollection',
+        'method' => 'fetchLists' 
+    ),
+    'parameter_type' => 'standard',
+    'parameters' => array( )
 );
 
 $FunctionList['fetchList'] = array( 
-  'name' => 'fetchList',
-  'operation_types' => array( 'read' ),
-  'call_method' => array( 
-    'include_file' => 'extension/phplist/modules/phplist/phplistfunctioncollection.php',
-    'class' => 'phplistFunctionCollection',
-    'method' => 'fetchList' 
-  ),
-  'parameter_type' => 'standard',
-  'parameters' => array( array('name' => 'listID',
-                               'type' => 'integer',
-                               'required' => true,
-                               'default' => -1 )
-                        )
+    'name' => 'fetchList',
+    'operation_types' => array( 'read' ),
+    'call_method' => array( 
+        'include_file' => 'extension/phplist/modules/phplist/phplistfunctioncollection.php',
+        'class' => 'phplistFunctionCollection',
+        'method' => 'fetchList' 
+    ),
+    'parameter_type' => 'standard',
+    'parameters' => array( array('name' => 'listID',
+    'type' => 'integer',
+    'required' => true,
+    'default' => -1 )
+)
 );
 
 

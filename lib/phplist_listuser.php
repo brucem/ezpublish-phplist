@@ -17,79 +17,73 @@
 // clear to you.
 //
 
-include_once( "lib/ezdb/classes/ezdb.php" );
-include_once( 'kernel/classes/ezpersistentobject.php' );
-
-
 class phplist_listuser extends eZPersistentObject
 {
 
-  function phplist_listuser(&$row)
-  {
-    $this->eZPersistentObject( $row );
-  }
+    function phplist_listuser( $row )
+    {
+        $this->eZPersistentObject( $row );
+    }
 
-  function &definition()
-  {
-    return array( 'fields' => array(
-                    'userid' => array(
-                      'name' => 'userid',
-                      'datatype' => 'integer',
-                      'default' => 0,
-                      'required' => true ),
-                    'listid' => array(
-                      'name' => 'listid',
-                      'datatype' => 'integer',
-                      'default' => 0,
-                      'required' => true ),
-                    'entered' => array(
-                      'name' => 'entered',
-                      'datatype' => 'date',
-                      'default' => '',
-                      'required' => true ),
-                    'modified' => array(
-                      'name' => 'modified',
-                      'datatype' => 'date',
-                      'default' => '',
-                      'required' => true ),
-                  ),
-                  'keys' => array( 'userid', 'listid' ),
-                  'function_attributes' => array(
-                  ),
-                  'class_name' => 'phplist_listuser',
-                  'name' => 'phplist_listuser' );
-  }
-  
-  function &create()
-  {
-    $row=array('entered' => date('Y-m-d H:i:s'));
-    return new phplist_listuser( $row );
-  }
+    static function definition()
+    {
+        return array( 'fields' => array(
+            'userid' => array(
+                'name' => 'userid',
+                'datatype' => 'integer',
+                'default' => 0,
+                'required' => true ),
+            'listid' => array(
+                'name' => 'listid',
+                'datatype' => 'integer',
+                'default' => 0,
+                'required' => true ),
+            'entered' => array(
+                'name' => 'entered',
+                'datatype' => 'date',
+                'default' => '',
+                'required' => true ),
+            'modified' => array(
+                'name' => 'modified',
+                'datatype' => 'date',
+                'default' => '',
+                'required' => true ),
+        ),
+        'keys' => array( 'userid', 'listid' ),
+        'function_attributes' => array(
+            ),
+            'class_name' => 'phplist_listuser',
+            'name' => 'phplist_listuser' );
+    }
 
-  function &store()
-  {
-    $this->setAttribute('modified', date('YmdHis'));
-    eZPersistentObject::store();
-    // add History entry
-  }
+    static function create()
+    {
+        $row = array( 'entered' => date( 'Y-m-d H:i:s' ) );
+        return new phplist_listuser( $row );
+    }
 
-  function &remove()
-  {
-    eZPersistentObject::remove();
-    // add History entry
-  }
+    function store( $fieldFilters = null )
+    {
+        $this->setAttribute('modified', date('YmdHis'));
+        eZPersistentObject::store();
+        // add History entry
+    }
 
+    function remove( $conditions = null, $extraConditions = null )
+    {
+        eZPersistentObject::remove();
+        // add History entry
+    }
 
-  function &fetchByUserIDListID($userid=null, $listid=null)
-  {
-    if ($userid==null || $listid==null)
-      return null;
-    $conds = array( 'userid' => $userid,
-                    'listid' => $listid);
-    return phplist_listuser::fetchObject( phplist_listuser::definition(), null, $conds);
-  }
+    static function fetchByUserIDListID($userid=null, $listid=null)
+    {
+        if ($userid==null || $listid==null)
+            return null;
+        $conds = array( 'userid' => $userid,
+            'listid' => $listid);
+        return phplist_listuser::fetchObject( phplist_listuser::definition(), null, $conds);
+    }
 
 }
 
 ?>
-

@@ -28,8 +28,7 @@ class phplistsubscribeType extends eZDataType
     function phplistsubscribeType()
     {
         $this->eZDataType( self::DATA_TYPE_STRING, "PHPlist Subscribe",
-            array( 'serialize_supported' => true,
-            'object_serialize_map' => array( 'data_int' => 'value' ) ) );
+            array( 'serialize_supported' => false ) );
     }
 
    /*!

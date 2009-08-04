@@ -26,16 +26,16 @@ class phplistFunctionCollection
 
     function fetchLists()
     {
-        $conds = array( 'active' => 1);
-        $sorts = array( 'listorder' => 'asc');
-        $result = phplist_list::fetchObjectList( phplist_list::definition(), null, $conds, $sorts);
+        $conds = array( 'active' => 1 );
+        $sorts = array( 'listorder' => 'asc' );
+        $result = phplist_list::fetchObjectList( phplist_list::definition(), null, $conds, $sorts );
         return array( 'result' => $result );
     }
 
     function fetchList($listID)
     {
-        $conds = array( 'id' => $listID);
-        $result = phplist_list::fetchObject( phplist_list::definition(), null, $conds);
+        $conds = array( 'id' => $listID );
+        $result = phplist_list::fetchObject( phplist_list::definition(), null, $conds );
         return array( 'result' => $result );
     }
 

@@ -89,15 +89,13 @@ class phplist_list extends eZPersistentObject
 
     static function create()
     {
-        $row=array(
-            'entered' => date('Y-m-d H:i:s'),
-        );
+        $row = array( 'entered' => date('Y-m-d H:i:s') );
         return new phplist_list( $row );
     }
 
     function store( $fieldFilters = null )
     {
-        $this->setAttribute( 'modified', date('YmdHis') );
+        $this->setAttribute( 'modified', date( 'YmdHis' ) );
         eZPersistentObject::store();
         // add History entry
     }

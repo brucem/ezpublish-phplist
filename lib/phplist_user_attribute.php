@@ -17,11 +17,6 @@
 // you.
 //
 
-include_once( "lib/ezdb/classes/ezdb.php" );
-include_once( 'kernel/classes/ezpersistentobject.php' );
-include_once( "extension/phplist/lib//phplist_listuser.php" );
-
-
 class phplist_user_attribute extends eZPersistentObject
 {
 
@@ -70,11 +65,10 @@ class phplist_user_attribute extends eZPersistentObject
                 'required' => true ),
         ),
         'keys' => array( 'id' ),
-        'function_attributes' => array(
-            ),
-            'increment_key' => 'id',
-            'class_name' => 'phplist_user_attribute',
-            'name' => 'phplist_user_attribute' );
+        'function_attributes' => array(),
+        'increment_key' => 'id',
+        'class_name' => 'phplist_user_attribute',
+        'name' => 'phplist_user_attribute' );
     }
 
     static function create()
@@ -90,15 +84,15 @@ class phplist_user_attribute extends eZPersistentObject
 
     function getAttributeValueID( $searchItem )
     {
-        $output=array();
-        if ($searchItem)
+        $output = array();
+        if ( $searchItem )
         {
             $db = eZDB::instance();
             $query="SELECT id FROM phplist_listattr_".$this->attribute('tablename')." WHERE name = '".$searchItem."'";
             $result = $db->arrayQuery($query);
             foreach ($result as $row)
             {
-                $output[]=$row['id'];
+                $output[] = $row['id'];
             }
         }
         return join( ',', $output );

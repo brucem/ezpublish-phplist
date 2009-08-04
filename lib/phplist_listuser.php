@@ -50,10 +50,9 @@ class phplist_listuser extends eZPersistentObject
                 'required' => true ),
         ),
         'keys' => array( 'userid', 'listid' ),
-        'function_attributes' => array(
-            ),
-            'class_name' => 'phplist_listuser',
-            'name' => 'phplist_listuser' );
+        'function_attributes' => array(),
+        'class_name' => 'phplist_listuser',
+        'name' => 'phplist_listuser' );
     }
 
     static function create()
@@ -77,10 +76,9 @@ class phplist_listuser extends eZPersistentObject
 
     static function fetchByUserIDListID($userid=null, $listid=null)
     {
-        if ($userid==null || $listid==null)
+        if ( $userid == null || $listid == null )
             return null;
-        $conds = array( 'userid' => $userid,
-            'listid' => $listid);
+        $conds = array( 'userid' => $userid, 'listid' => $listid );
         return phplist_listuser::fetchObject( phplist_listuser::definition(), null, $conds);
     }
 

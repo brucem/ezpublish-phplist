@@ -73,8 +73,8 @@ include_once( "extension/phplist/lib/phplist_user.php" );
 $db = eZDB::instance();
 $db->setIsSQLOutputEnabled( $showSQL );
 
-$phplistSubscribeTypeAttributeList = eZContentClassAttribute::fetchList( true, array( 'data_type' => 'phplistsubscribe',
-    'version' => 0 ) );
+$phplistSubscribeTypeAttributeList = eZContentClassAttribute::fetchList( true,
+    array( 'data_type' => 'phplistsubscribe', 'version' => 0 ) );
 $classAttributeIDList = array();
 for ( $i = 0; $i < count( $phplistSubscribeTypeAttributeList ); ++$i )
 {
@@ -83,7 +83,7 @@ for ( $i = 0; $i < count( $phplistSubscribeTypeAttributeList ); ++$i )
 }
 unset( $phplistSubscribeTypeAttributeList );
 
-$attributeCount = eZContentObjectAttribute::fetchListByClassID( $classAttributeIDList, false, 
+$attributeCount = eZContentObjectAttribute::fetchListByClassID( $classAttributeIDList, false,
     array( 'offset' => 0, 'length' => 3 ), false, true );
 if ( $showDebug )
     print( "Attribute count = '$attributeCount'\n" );

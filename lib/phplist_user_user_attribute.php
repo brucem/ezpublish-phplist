@@ -29,19 +29,19 @@ class phplist_user_user_attribute extends eZPersistentObject
     {
         return array( 'fields' => array(
             'attributeid' => array(
-                'name' => 'attributeid',
+                'name'     => 'attributeid',
                 'datatype' => 'integer',
-                'default' => 0,
+                'default'  => 0,
                 'required' => true ),
             'userid' => array(
-                'name' => 'userid',
+                'name'     => 'userid',
                 'datatype' => 'integer',
-                'default' => 0,
+                'default'  => 0,
                 'required' => true ),
             'value' => array(
-                'name' => 'value',
+                'name'     => 'value',
                 'datatype' => 'string',
-                'default' => '',
+                'default'  => '',
                 'required' => false ),
         ),
         'keys' => array( 'attributeid', 'userid' ),
@@ -49,24 +49,24 @@ class phplist_user_user_attribute extends eZPersistentObject
             'attribute' => 'getAttribute'
         ),
         'class_name' => 'phplist_user_user_attribute',
-        'name' => 'phplist_user_user_attribute' );
+        'name'       => 'phplist_user_user_attribute' );
     }
 
-    static function create()
+    static function create( $row )
     {
         return new phplist_user_user_attribute( $row );
     }
 
     function store( $fieldFilters = null )
     {
-        eZPersistentObject::store();
+        eZPersistentObject::store( $fieldFilters );
         // add History entry
     }
 
     function getAttribute()
     {
-        $conds = array( 'id' => $this->attribute('attributeid'));
-        return phplist_user_attribute::fetchObject( phplist_user_attribute::definition(), null, $conds);
+        $conds = array( 'id' => $this->attribute( 'attributeid' ) );
+        return phplist_user_attribute::fetchObject( phplist_user_attribute::definition(), null, $conds );
     }
 
 }

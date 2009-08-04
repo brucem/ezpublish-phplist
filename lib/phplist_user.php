@@ -17,15 +17,6 @@
 // you.
 //
 
-/**
- * phplist_user 
- * 
- * @package PHPList
- * @version //autogen//
- * @copyright Copyright (C) 2009 Bruce Morrison. All rights reserved.
- * @author Bruce Morrison <bruce.morrison@stuffandcontent.com> 
- * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License (GPL)
- */
 class phplist_user extends eZPersistentObject
 {
 
@@ -38,95 +29,95 @@ class phplist_user extends eZPersistentObject
     {
         return array( 'fields' => array(
             'id' => array(
-                'name' => 'id',
+                'name'     => 'id',
                 'datatype' => 'integer',
-                'default' => 0,
+                'default'  => 0,
                 'required' => true ),
             'email' => array(
-                'name' => 'email',
+                'name'     => 'email',
                 'datatype' => 'string',
-                'default' => '',
+                'default'  => '',
                 'required' => true ),
             'confirmed' => array(
-                'name' => 'confirmed',
+                'name'     => 'confirmed',
                 'datatype' => 'boolean',
-                'default' => true,
+                'default'  => true,
                 'required' => true ),
             'blacklisted' => array(
-                'name' => 'blacklisted',
+                'name'     => 'blacklisted',
                 'datatype' => 'boolean',
-                'default' => false,
+                'default'  => false,
                 'required' => true ),
             'bouncecount' => array(
-                'name' => 'bouncecount',
+                'name'     => 'bouncecount',
                 'datatype' => 'integer',
-                'default' => 0,
+                'default'  => 0,
                 'required' => true ),
-            'entered' => array(
-                'name' => 'entered',
+            'entered'  => array(
+                'name'     => 'entered',
                 'datatype' => 'date',
-                'default' => '',
+                'default'  => '',
                 'required' => true ),
             'modified' => array(
-                'name' => 'modified',
+                'name'     => 'modified',
                 'datatype' => 'date',
-                'default' => '',
+                'default'  => '',
                 'required' => true ),
             'uniqid' => array(
-                'name' => 'uniqid',
+                'name'     => 'uniqid',
                 'datatype' => 'string',
-                'default' => '',
+                'default'  => '',
                 'required' => true ),
             'htmlemail' => array(
-                'name' => 'htmlemail',
+                'name'     => 'htmlemail',
                 'datatype' => 'boolean',
-                'default' => true,
+                'default'  => true,
                 'required' => true ),
             'subscribepage' => array(
-                'name' => 'subscribepage',
+                'name'     => 'subscribepage',
                 'datatype' => 'integer',
-                'default' => 0,
+                'default'  => 0,
                 'required' => true ),
             'rssfrequency' => array(
-                'name' => 'rssfrequency',
+                'name'     => 'rssfrequency',
                 'datatype' => 'string',
-                'default' => '',
+                'default'  => '',
                 'required' => true ),
             'password' => array(
-                'name' => 'password',
+                'name'     => 'password',
                 'datatype' => 'string',
-                'default' => '',
+                'default'  => '',
                 'required' => true ),
             'passwordchanged' => array(
-                'name' => 'passwordchanged',
+                'name'     => 'passwordchanged',
                 'datatype' => 'date',
-                'default' => '',
+                'default'  => '',
                 'required' => true ),
             'disabled' => array(
-                'name' => 'disabled',
+                'name'     => 'disabled',
                 'datatype' => 'boolean',
-                'default' => false,
+                'default'  => false,
                 'required' => true ),
             'extradata' => array(
-                'name' => 'extradata',
+                'name'     => 'extradata',
                 'datatype' => 'string',
-                'default' => '',
+                'default'  => '',
                 'required' => true ),
             'foreignkey' => array(
-                'name' => 'foreignkey',
+                'name'     => 'foreignkey',
                 'datatype' => 'string',
-                'default' => '',
+                'default'  => '',
                 'required' => true ),
         ),
         'keys' => array( 'id' ),
         'function_attributes' => array(
-            'subscriptions' => 'getSubscriptions',
-            'attributes' => 'getAttributes',
+            'subscriptions'  => 'getSubscriptions',
+            'attributes'     => 'getAttributes',
             'userAttributes' => 'getUserAttributes',
         ),
         'increment_key' => 'id',
-        'class_name' => 'phplist_user',
-        'name' => 'phplist_user_user' );
+        'class_name'    => 'phplist_user',
+        'name'          => 'phplist_user_user' );
     }
 
     static function create()
@@ -188,9 +179,8 @@ class phplist_user extends eZPersistentObject
         if ($id==null)
             return null;
         $conds = array( 'id' => $id );
-        return phplist_user::fetchObject( phplist_user::definition(), null, $conds);
+        return phplist_user::fetchObject( phplist_user::definition(), null, $conds );
     }
-
 
     static function fetchByForeignkey( $foreignkey=null )
     {
@@ -203,31 +193,30 @@ class phplist_user extends eZPersistentObject
     function getSubscriptions()
     {
         $conds = array( 'userid' => $this->attribute( 'id' ) );
-        return phplist_listuser::fetchObjectList( phplist_listuser::definition(), null, $conds);
+        return phplist_listuser::fetchObjectList( phplist_listuser::definition(), null, $conds );
     }
 
     static function getAttributes()
     {
         $conds = array();
         $sorts = array('listorder' => 'asc' );
-        return phplist_user_attribute::fetchObjectList( phplist_user_attribute::definition(), null, $conds, $sorts);
+        return phplist_user_attribute::fetchObjectList( phplist_user_attribute::definition(), null, $conds, $sorts );
     }
 
     function getUserAttributes()
     {
-        $conds = array( 'userid' => $this->attribute('id'));
+        $conds = array( 'userid' => $this->attribute( 'id' ) );
         return phplist_user_user_attribute::fetchObjectList( phplist_user_user_attribute::definition(), null, $conds);
     }
 
-    function isSubscribed($listID)
+    function isSubscribed( $listID )
     {
-        $conds = array( 'userid' => $this->attribute('id'),
-            'listid' => $listID);
-        $sub = phplist_listuser::fetchObject( phplist_listuser::definition(), null, $conds);
-        return ($sub != null);
+        $conds = array( 'userid' => $this->attribute('id'), 'listid' => $listID );
+        $sub = phplist_listuser::fetchObject( phplist_listuser::definition(), null, $conds );
+        return ( $sub != null );
     }
 
-    function subscribe($listID)
+    function subscribe( $listID )
     {
         //check if user is already subscribed
         if (! $this->isSubscribed($listID))
@@ -241,12 +230,12 @@ class phplist_user extends eZPersistentObject
 
     function unsubscribe($listID)
     {
-        $sub = phplist_listuser::fetchByUserIDListID($this->attribute('id'), $listID);
+        $sub = phplist_listuser::fetchByUserIDListID( $this->attribute('id'), $listID );
         if ($sub != null)
             $sub->remove();
     }
 
-    function mapAttributes($userObject=null)
+    function mapAttributes( $userObject=null )
     {
         if ($userObject != null)
         {
